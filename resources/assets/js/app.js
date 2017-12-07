@@ -23,7 +23,7 @@ Vue.use(Buefy);
 //     el: '#app'
 // });
 
-var app = new Vue({
-    el : '#app',
-    data : {},
-});
+// var app = new Vue({
+//     el : '#app',
+//     data : {},
+// });

@@ -37,7 +37,7 @@
                                 <i class="fa fa-fw fa-bell m-r-5"></i>
                               </span>Notifications
                             </a>
-                            <a href="" class="navbar-item">
+                            <a href="{{route('manage.dashboard')}}" class="navbar-item">
                               <span class="icon">
                                 <i class="fa fa-fw fa-cog m-r-5"></i>
                               </span>Manage
