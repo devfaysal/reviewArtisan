@@ -1,4 +1,4 @@
-<nav class="navbar has-shadow" >
+<nav class="navbar has-shadow is-fixed-top" >
     <div class="container">
         <div class="navbar-brand">
           <a class="navbar-item is-paddingless" href="{{route('home')}}">
