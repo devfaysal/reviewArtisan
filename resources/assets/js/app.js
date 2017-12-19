@@ -17,6 +17,9 @@ Vue.use(Buefy);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
+require('./manage');
+
+
 // Vue.component('example-component', require('./components/ExampleComponent.vue'));
 //
 // const app = new Vue({
