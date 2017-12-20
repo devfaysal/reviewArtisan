@@ -4,32 +4,18 @@
         General
       </p>
       <ul class="menu-list">
-        <li><a href="{{route('manage.dashboard')}}">Dashboard</a></li>
+        <li><a class="{{ Nav::isRoute('manage.dashboard') }}" href="{{route('manage.dashboard')}}">Dashboard</a></li>
       </ul>
       <p class="menu-label">
         Administration
       </p>
       <ul class="menu-list">
-        <li><a href="{{route('users.index')}}">Manage Users</a></li>
+        <li><a class="{{ Nav::isResource('users') }}" href="{{route('users.index')}}">Manage Users</a></li>
         <li>
-            <a class="has-submenu">Roles &amp; Permissions</a>
+            <a class="has-submenu {{ Nav::hasSegment(['roles', 'permissions'], 2) }}">Roles &amp; Permissions</a>
             <ul class="submenu">
-                <li><a href="{{route('roles.index')}}">Roles</a></li>
-                <li><a href="{{route('permissions.index')}}">Permissions</a></li>
-            </ul>
-        </li>
-        <li>
-            <a class="has-submenu">dummy 1</a>
-            <ul class="submenu">
-                <li><a href="{{route('roles.index')}}">Roles</a></li>
-                <li><a href="{{route('permissions.index')}}">Permissions</a></li>
-            </ul>
-        </li>
-        <li>
-            <a class="has-submenu">dummy2</a>
-            <ul class="submenu">
-                <li><a href="{{route('roles.index')}}">Roles</a></li>
-                <li><a href="{{route('permissions.index')}}">Permissions</a></li>
+                <li><a class="{{ Nav::isResource('roles') }}" href="{{route('roles.index')}}">Roles</a></li>
+                <li><a class="{{ Nav::isResource('permissions') }}" href="{{route('permissions.index')}}">Permissions</a></li>
             </ul>
         </li>
       </ul>
