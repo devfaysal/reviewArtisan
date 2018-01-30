@@ -8,9 +8,14 @@
 require('./bootstrap');
 
 window.Vue = require('vue');
+
+window.Slug = require('slug');
+Slug.defaults.mode ='rfc3986';
+
 import Buefy from 'buefy';
 Vue.use(Buefy);
 
+Vue.component('slugWidget', require('./components/slugWidget.vue'));
 /**
  * Next, we will create a fresh Vue application instance and attach it to
  * the page. Then, you may begin adding components to this application
@@ -20,7 +25,7 @@ Vue.use(Buefy);
 require('./manage');
 
 
-// Vue.component('example-component', require('./components/ExampleComponent.vue'));
+
 //
 // const app = new Vue({
 //     el: '#app'

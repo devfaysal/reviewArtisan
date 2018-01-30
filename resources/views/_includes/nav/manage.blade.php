@@ -7,6 +7,12 @@
         <li><a class="{{ Nav::isRoute('manage.dashboard') }}" href="{{route('manage.dashboard')}}">Dashboard</a></li>
       </ul>
       <p class="menu-label">
+        Content
+      </p>
+      <ul class="menu-list">
+        <li><a class="{{ Nav::isResource('posts') }}" href="{{route('posts.index')}}">Posts</a></li>
+      </ul>
+      <p class="menu-label">
         Administration
       </p>
       <ul class="menu-list">
