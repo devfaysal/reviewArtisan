@@ -12,6 +12,9 @@
       <ul class="menu-list">
         <li><a class="{{ Nav::isResource('posts') }}" href="{{route('posts.index')}}">Posts</a></li>
       </ul>
+      <ul class="menu-list">
+        <li><a class="{{ Nav::isResource('business-pages') }}" href="{{route('business-pages.index')}}">Business Pages</a></li>
+      </ul>
       <p class="menu-label">
         Administration
       </p>

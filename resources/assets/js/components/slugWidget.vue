@@ -32,7 +32,7 @@
             ><span class="subdirectory-url">/{{subdirectory}}/</span
             ><span class="slug" v-show="slug && !isEditing">{{slug}}</span
             ><input type="text" class="input is-small" v-show="isEditing" v-model="customSlug"/>
-            
+
         </div>
 
         <div class="button-wrapper wrapper">
@@ -66,6 +66,7 @@
                 customSlug: '',
                 wasEdited: false,
                 api_token: this.$root.api_token,
+                unique_search_in: this.$root.unique_search_in,
             }
         },
         methods: {
@@ -89,9 +90,10 @@
                 //Slugify the newVal
                 let slug = Slug(newVal + (count > 0 ? `-${count}` : ''));
                 let vm = this;
-                if(this.api_token && slug){
+                if(this.api_token && slug && this.unique_search_in){
                     //Test to see if unique
-                    axios.get('/api/posts/unique', {
+                    var url = '/api/'+ vm.unique_search_in +'/unique';
+                    axios.get(url , {
                         params: {
                             api_token: vm.api_token,
                             slug: slug,

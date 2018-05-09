@@ -60,7 +60,8 @@
             data: {
                 title: '',
                 slug: '',
-                api_token: '{{Auth::user()->api_token}}'
+                api_token: '{{Auth::user()->api_token}}',
+                unique_search_in: 'posts',
             },
             methods: {
                 updateSlug: function(val){

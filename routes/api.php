@@ -15,4 +15,6 @@ use Illuminate\Http\Request;
 
 Route::middleware('auth:api')->group(function () {
     Route::get('/posts/unique', 'PostController@apiCheckUnique')->name('api.posts.unique');
+    Route::get('/business-pages/unique', 'BusinessPageController@apiCheckUnique')->name('api.business-pages.unique');
+    Route::get('/business-pages/getDistricts', 'BusinessPageController@getDistricts')->name('api.business-pages.getDistricts');
 });
