@@ -8,11 +8,12 @@ use Session;
 use Auth;
 use App\Division;
 use App\District;
+use App\Thana;
 
 class BusinessPageController extends Controller
 {
     public function __construct(){
-        $this->middleware('role:superadministrator');
+        $this->middleware('role:superadministrator')->except('publicView');
     }
 
     /**
@@ -22,8 +23,8 @@ class BusinessPageController extends Controller
      */
     public function index()
     {
-
-        return view('manage.businessPages.index');
+        $bpages = BusinessPage::all();
+        return view('manage.businessPages.index')->withBpages($bpages);
     }
 
     /**
@@ -34,7 +35,9 @@ class BusinessPageController extends Controller
     public function create()
     {
         $divisions = Division::all();
-        return view('manage.businessPages.create')->withDivisions($divisions);
+        $districts = District::all();
+        $thanas = Thana::all();
+        return view('manage.businessPages.create')->withDivisions($divisions)->withDistricts($districts)->withThanas($thanas);
     }
 
     /**
@@ -45,7 +48,78 @@ class BusinessPageController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        
+        $this->validate($request, [
+            'business_name' => 'required',
+            'slug' => 'required',
+            'category' => 'required',
+            'address' => 'required',
+            'city' => 'required',
+            'postal_code' => 'required',
+            'thana' => 'required',
+            'district' => 'required',
+            'division' => 'required',
+            'phone' => 'required',
+            'email' => 'required|email',
+            'status' => 'required',
+            'logo' => 'mimes:jpg,jpeg,bmp,png|nullable|max:1999',
+            'banner' => 'mimes:jpg,jpeg,bmp,png|nullable|max:1999'
+            
+        ]); 
+        
+        //Handle Logo Upload
+        if($request->hasFile('logo')){
+            $logoNameWithExt = $request->file('logo')->getClientOriginalName();
+
+            $logoName = pathinfo($logoNameWithExt, PATHINFO_FILENAME);
+
+            $logoExtension = $request->file('logo')->getClientOriginalExtension();
+
+            $logoNameToStore = $logoName.'_'.time().'.'.$logoExtension;
+
+            $path = $request->file('logo')->storeAs('public/logos', $logoNameToStore);
+        }else{
+            $logoNameToStore = 'dummyLogo.png';
+        }
+        //Handle Banner Upload
+        if($request->hasFile('banner')){
+            $bannerNameWithExt = $request->file('banner')->getClientOriginalName();
+
+            $bannerName = pathinfo($bannerNameWithExt, PATHINFO_FILENAME);
+
+            $bannerExtension = $request->file('banner')->getClientOriginalExtension();
+
+            $bannerNameToStore = $bannerName.'_'.time().'.'.$bannerExtension;
+
+            $path = $request->file('banner')->storeAs('public/banners', $bannerNameToStore);
+        }else{
+            $bannerNameToStore = 'dummyBanner.png';
+        }
+
+        $page = new BusinessPage;
+
+        $page->slug = $request->slug;
+        $page->owner_id = Auth::user()->id;
+        $page->country = $request->country;
+        $page->business_name = $request->business_name;
+        $page->category = $request->category;
+        $page->address = $request->address;
+        $page->city = $request->city;
+        $page->postal_code = $request->postal_code;
+        $page->thana = $request->thana;
+        $page->district = $request->district;
+        $page->division = $request->division;
+        $page->phone = $request->phone;
+        $page->email = $request->email;
+        $page->website = $request->website;
+        $page->logo = $logoNameToStore;
+        $page->banner = $bannerNameToStore;
+        $page->status = $request->status;
+
+        $page->save();
+
+        Session::flash('success', 'Business page has been added successfully');
+        return redirect()->route('business-pages.index');
     }
 
     /**
@@ -91,6 +165,13 @@ class BusinessPageController extends Controller
     public function destroy(BusinessPage $businessPage)
     {
         //
+    }
+
+    public function publicView($slug)
+    {
+        $bpage = BusinessPage::where('slug', '=', $slug)->first();
+
+        return view('public.businessPage')->withBpage($bpage);
     }
 
     public function apiCheckUnique(Request $request){

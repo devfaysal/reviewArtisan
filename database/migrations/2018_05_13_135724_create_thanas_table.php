@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateUpazilasTable extends Migration
+class CreateThanasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,7 +13,7 @@ class CreateUpazilasTable extends Migration
      */
     public function up()
     {
-        Schema::create('upazilas', function (Blueprint $table) {
+        Schema::create('thanas', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('district_id')->unsigned();
             $table->string('name', 30);
@@ -23,7 +23,6 @@ class CreateUpazilasTable extends Migration
             $table->foreign('district_id')
                   ->references('id')->on('districts')
                   ->onDelete('cascade');
-
         });
     }
 
@@ -34,6 +33,6 @@ class CreateUpazilasTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('upazilas');
+        Schema::dropIfExists('thanas');
     }
 }

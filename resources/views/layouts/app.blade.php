@@ -15,7 +15,7 @@
     @yield('styles')
 </head>
 <body>
-    <div id="app">
+    <div class="public" id="app">
         @include('_includes.nav.main')
         @yield('content')
     </div>

@@ -24,7 +24,14 @@
                         </tr>
                     </thead>
                     <tbody>
-
+                        @foreach($bpages as $bpage)
+                        <tr>
+                            <td>{{$bpage->id}}</td>
+                            <td>{{$bpage->business_name}}</td>
+                            <td>{{$bpage->owner_id}}</td>
+                            <td>{{$bpage->created_at}}</td>
+                        </tr>
+                        @endforeach
                     </tbody>
                 </table>
             </div>

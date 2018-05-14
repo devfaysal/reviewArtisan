@@ -29,12 +29,12 @@ class CreateBusinessPagesTable extends Migration
             $table->string('phone');
             $table->string('email');
             $table->string('website');
-            $table->string('logo');
-            $table->string('banner');
+            $table->string('logo')->nullable();
+            $table->string('banner')->nullable();
             $table->integer('review_count')->unsigned()->default(0);
-            $table->smallInteger('rating');
-            $table->tinyInteger('claimed');
-            $table->tinyInteger('status');
+            $table->smallInteger('rating')->nullable();
+            $table->tinyInteger('claimed')->default(0);
+            $table->tinyInteger('status')->default(0);
             $table->timestamps();
 
             $table->foreign('owner_id')
