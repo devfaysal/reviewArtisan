@@ -32,7 +32,7 @@ class CreateBusinessPagesTable extends Migration
             $table->string('logo')->nullable();
             $table->string('banner')->nullable();
             $table->integer('review_count')->unsigned()->default(0);
-            $table->smallInteger('rating')->nullable();
+            $table->smallInteger('average_rating')->nullable();
             $table->tinyInteger('claimed')->default(0);
             $table->tinyInteger('status')->default(0);
             $table->timestamps();

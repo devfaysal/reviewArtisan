@@ -14,6 +14,7 @@
                         <span><i class="fa fa-globe" aria-hidden="true"></i> {{$bpage->website}}</i></span><br/>
                     </div>
                 </div><!--end of card-->
+                <a href="{{route('writeReview', $bpage->slug)}}">Write Review</a>
             </div>
             <div class="column">
                 <div class="card">
