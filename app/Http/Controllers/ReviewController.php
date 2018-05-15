@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Review;
 use Illuminate\Http\Request;
+use App\BusinessPage;
+use Auth;
+use Session;
 
 class ReviewController extends Controller
 {
@@ -22,9 +25,10 @@ class ReviewController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function create()
+    public function create($slug)
     {
-        return view('public.review.create');
+        $bpage = BusinessPage::where('slug', '=', $slug)->first();
+        return view('public.review.create')->withBpage($bpage);
     }
 
     /**
@@ -33,9 +37,31 @@ class ReviewController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(Request $request, $slug)
     {
-        //
+
+        // echo '<pre>';
+        // print_r($request->all());
+        // echo '</pre>';
+        // exit();
+        $this->validate($request, [
+            'content' => 'required|min:100|max:300',
+            'rating' => 'required'
+        ]);
+
+        $bpage = BusinessPage::where('slug', '=', $slug)->first();
+
+        $review = new Review;
+
+        $review->author_id = Auth::user()->id;
+        $review->business_page_id = $bpage->id;
+        $review->content = $request->content;
+        $review->rating = $request->rating;
+
+        $review->save();
+
+        Session::flash('success', 'Your Review has been added successfully');
+        return redirect()->route('business-page.public', $bpage->slug);
     }
 
     /**

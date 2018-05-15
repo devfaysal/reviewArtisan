@@ -29,4 +29,5 @@ Route::prefix('manage')->middleware('role:superadministrator|administrator|edito
 
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/business-page/{slug}', 'BusinessPageController@publicView')->name('business-page.public');
-Route::get('/business-page/{slug}/writereview', 'ReviewController@create')->name('writeReview');
+Route::get('/business-page/{slug}/writereview', 'ReviewController@create')->name('review.create');
+Route::post('/business-page/{slug}/writereview', 'ReviewController@store')->name('review.store');

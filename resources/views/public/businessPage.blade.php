@@ -14,7 +14,7 @@
                         <span><i class="fa fa-globe" aria-hidden="true"></i> {{$bpage->website}}</i></span><br/>
                     </div>
                 </div><!--end of card-->
-                <a href="{{route('writeReview', $bpage->slug)}}">Write Review</a>
+                <a href="{{route('review.create', $bpage->slug)}}">Write Review</a>
             </div>
             <div class="column">
                 <div class="card">
@@ -27,7 +27,9 @@
         <hr>
         <div class="card">
             <div class="card-content">
-                
+                @foreach ($bpage->reviews as $review)
+                    <p>{{$review->content}}</p>
+                @endforeach
             </div>
         </div><!--end of card-->
     </div>
