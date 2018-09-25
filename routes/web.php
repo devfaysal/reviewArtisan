@@ -15,7 +15,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Auth::routes();
+Auth::routes(['verify' => true]);
 
 Route::prefix('manage')->middleware('role:superadministrator|administrator|editor')->group(function(){
     Route::get('/', 'ManageController@index');
