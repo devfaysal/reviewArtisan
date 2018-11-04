@@ -1,37 +1,22 @@
 @extends('layouts.manage')
 
 @section('content')
-    <div class="flex-container">
-        <div class="columns m-t-10">
-            <div class="column">
-                <h1 class="title">View User Details</h1>
-            </div>
-            <div class="column">
-                <a href="{{route('users.edit', $user->id)}}" class="button is-primary is-pulled-right"><i class="fa fa-user m-r-10"></i>Edit User</a>
-            </div>
+    <div class="card">
+        <div class="card-header">
+            <h1 class="card-title">View User Details</h1>
+            <a href="{{url()->previous()}}" class="btn btn-outline-dark">Back</a>
+            <a href="{{route('users.edit', $user->id)}}" class="btn btn-outline-primary">Edit User</a>
         </div>
-        <hr class="m-t-0">
-        <div class="columns">
-            <div class="column">
-                <div class="field">
-                    <label for="name" class="label">Name</label>
-                    <p>{{$user->name}}</p>
-                </div>
-                <div class="field">
-                    <label for="email" class="label">Email</label>
-                    <p>{{$user->email}}</p>
-                </div>
-                <div class="field">
-                    <label for="email" class="label">Roles</label>
-                    <ul>
-                        {{$user->roles->count() == 0 ? 'This user has not been asigned any roles yet' : ''}}
-                        @foreach( $user->roles as $role)
-                            <li>{{$role->display_name}} <em>({{$role->description}})</em></li>
-                        @endforeach
-                    </ul>
-                </div>
-            </div>
+        <div class="card-body">
+            <p><strong>Name: </strong>{{$user->name}}</p>
+            <p><strong>Email: </strong>{{$user->email}}</p>
+            <p><strong>Roles: </strong></p>
+            <ul>
+                {{$user->roles->count() == 0 ? 'This user has not been asigned any roles yet' : ''}}
+                @foreach( $user->roles as $role)
+                    <li>{{$role->display_name}} <em>({{$role->description}})</em></li>
+                @endforeach
+            </ul>
         </div>
-    </div>
-
+    </div><!--end of card-->
 @endsection

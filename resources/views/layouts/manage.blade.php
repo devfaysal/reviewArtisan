@@ -16,6 +16,7 @@
     @yield('styles')
 </head>
 <body>
+<div id="app">
     <nav class="navbar navbar-dark fixed-top bg-dark flex-md-nowrap p-0 shadow">
         <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">Company name</a>
         <input class="form-control form-control-dark w-100" type="text" placeholder="Search" aria-label="Search">
@@ -103,11 +104,24 @@
             </div>
             </nav>
     
-            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4">
+            <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-4 m-t-20">
+                @if(Session::has('message'))
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="alert {{ Session::get('alert-class', 'alert-info') }} alert-dismissible fade show" role="alert">
+                                <strong>{{ Session::get('message') }}</strong>
+                                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                @endif
                 @yield('content')
             </main>
         </div>
     </div>
+</div>
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}"></script>
     <!-- Icons -->
