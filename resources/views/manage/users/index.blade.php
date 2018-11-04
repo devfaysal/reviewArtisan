@@ -4,7 +4,7 @@
     <div class="card">
         <div class="card-header">
             <h1 class="card-title">Manage Users</h1>
-            <a href="{{route('users.create')}}" class="btn btn-outline-success"><i class="fa fa-user-add m-t-10"></i> Create New User</a>
+            <a href="{{route('users.create')}}" class="btn btn-outline-success">Create New User</a>
         </div>
         <div class="card-body">
             <table class="table table-sm">

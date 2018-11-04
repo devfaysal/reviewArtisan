@@ -65,15 +65,16 @@ class UserController extends Controller
         $user->save();
 
         $user->syncRoles(explode(',', $request->roles));
-        return redirect()->route('users.show', $user->id);
-        Session::flash('success', 'The User Has been updated successfully!');
 
-        // if($user->save()){
-        //     return redirect()->route('users.show', $user->id);
-        // }else{
-        //     Session::flash('danger', 'Problem occured when creating user');
-        //     return redirect()->route('users.create');
-        // }
+        if($user->save()){
+            Session::flash('message', 'User Created Successfully!!'); 
+            Session::flash('alert-class', 'alert-success');
+            return redirect()->route('users.show', $user->id);
+        }else{
+            Session::flash('message', 'Problem occured when creating user, Try Again!!'); 
+            Session::flash('alert-class', 'alert-danger');
+            return redirect()->route('users.create');
+        }
     }
 
     /**
@@ -135,15 +136,16 @@ class UserController extends Controller
         $user->save();
 
         $user->syncRoles(explode(',', $request->roles));
-        return redirect()->route('users.show', $id);
-        Session::flash('success', 'The User Has been updated successfully!');
 
-        // if($user->save()){
-        //     return redirect()->route('users.show', $id);
-        // }else {
-        //     Session::flash('danger', 'There was a problem saving new user info. Try again.');
-        //     return redirect()->route('users.edit', $id);
-        // }
+        if($user->save()){
+            Session::flash('message', 'The User Has been updated successfully!!'); 
+            Session::flash('alert-class', 'alert-primary');
+            return redirect()->route('users.show', $user->id);
+        }else{
+            Session::flash('message', 'Problem occured when editing user, Try Again!!'); 
+            Session::flash('alert-class', 'alert-danger');
+            return redirect()->route('users.update', $user->id);
+        }
     }
 
     /**

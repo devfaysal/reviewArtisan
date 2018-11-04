@@ -49,9 +49,16 @@ class PermissionController extends Controller
             $permission->name = $request->name;
             $permission->description = $request->description;
             $permission->save();
-
-            Session::flash('success', 'Permission has been added successfully');
-            return redirect()->route('permissions.index');
+            
+            if($permission->save()){
+                Session::flash('message', 'Permission has been added successfully'); 
+                Session::flash('alert-class', 'alert-success');
+                return redirect()->route('permissions.show', $permission->id);
+            }else{
+                Session::flash('message', 'Problem occured when creating permission, Try Again!!'); 
+                Session::flash('alert-class', 'alert-danger');
+                return redirect()->route('permissions.create');
+            }
 
         } elseif ($request->permission_type == 'crud') {
             $this->validate($request, [
@@ -72,9 +79,15 @@ class PermissionController extends Controller
                     $permission->description = $description;
                     $permission->save();
                 }
-
-                Session::flash('success', 'Permissions has been added successfully');
-                return redirect()->route('permissions.index');
+                if($permission->save()){
+                    Session::flash('message', 'Permissions has been added successfully'); 
+                    Session::flash('alert-class', 'alert-success');
+                    return redirect()->route('permissions.index');
+                }else{
+                    Session::flash('message', 'Problem occured when creating permission, Try Again!!'); 
+                    Session::flash('alert-class', 'alert-danger');
+                    return redirect()->route('permissions.create');
+                }
             }
         } else {
             return redirect()->route('permissions.create')->withInput();
@@ -124,8 +137,15 @@ class PermissionController extends Controller
         $permission->description = $request->description;
         $permission->save();
 
-        Session::flash('success', 'Permission has been updated successfully');
-        return redirect()->route('permissions.index');
+        if($permission->save()){
+            Session::flash('message', 'Permissions has been updated successfully'); 
+            Session::flash('alert-class', 'alert-primary');
+            return redirect()->route('permissions.show', $permission->id);
+        }else{
+            Session::flash('message', 'Problem occured when updating permission, Try Again!!'); 
+            Session::flash('alert-class', 'alert-danger');
+            return redirect()->route('permissions.edit', $permission->id);
+        }
     }
 
     /**

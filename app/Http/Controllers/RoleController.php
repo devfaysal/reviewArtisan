@@ -56,8 +56,15 @@ class RoleController extends Controller
             $role->syncPermissions(explode(',', $request->permissions));
         }
 
-        Session::flash('success', 'Successfully Created the ' . $role->display_name . 'role in the database');
-        return redirect()->route('roles.show', $role->id);
+        if($role->save()){
+            Session::flash('message', 'Successfully Saved the ' . $role->display_name . ' role in the database'); 
+            Session::flash('alert-class', 'alert-success');
+            return redirect()->route('roles.show', $role->id);
+        }else{
+            Session::flash('message', 'Problem occured when creating role, Try Again!!'); 
+            Session::flash('alert-class', 'alert-danger');
+            return redirect()->route('roles.create');
+        }
     }
 
     /**
@@ -108,9 +115,15 @@ class RoleController extends Controller
         if($request->permissions){
             $role->syncPermissions(explode(',', $request->permissions));
         }
-
-        Session::flash('success', 'Successfully Updated the ' . $role->display_name . 'role in the database');
-        return redirect()->route('roles.show', $id);
+        if($role->save()){
+            Session::flash('message', 'Successfully Updated the ' . $role->display_name . ' role in the database'); 
+            Session::flash('alert-class', 'alert-primary');
+            return redirect()->route('roles.show', $role->id);
+        }else{
+            Session::flash('message', 'Problem occured when updating role, Try Again!!'); 
+            Session::flash('alert-class', 'alert-danger');
+            return redirect()->route('roles.edit', $role->id);
+        }
     }
 
     /**
