@@ -17,7 +17,7 @@ class CreateThanasTable extends Migration
             $table->increments('id');
             $table->integer('district_id')->unsigned();
             $table->string('name', 30);
-            $table->string('bn_name', 50);
+            $table->string('bn_name', 50)->nullable();
             $table->timestamps();
 
             $table->foreign('district_id')
