@@ -5,7 +5,7 @@
     <div class="card-header">
         <h1 class="card-title">View Business Page Details</h1>
         <a href="{{url()->previous()}}" class="btn btn-outline-dark">Back</a>
-        <a href="{{route('business-pages.edit', $businessPage->id)}}" class="btn btn-outline-success">Edit this Business Page</a>
+        <a href="{{route('business-pages.edit', $businessPage->id)}}" class="btn btn-outline-primary">Edit this Business Page</a>
     </div>
     <div class="card-body">
         <table class="table table-sm">

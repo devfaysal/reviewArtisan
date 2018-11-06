@@ -1,28 +1,35 @@
 @extends('layouts.manage')
 
 @section('content')
-    <div class="flex-container">
-        <div class="columns m-t-10">
-            <div class="column">
-                <h1 class="title">View Post Details</h1>
-            </div>
-            <div class="column">
-                <a href="{{route('posts.edit', $post->id)}}" class="button is-primary is-pulled-right"><i class="fa fa-user m-r-10"></i>Edit Post</a>
-            </div>
-        </div>
-        <hr class="m-t-0">
-        <div class="columns">
-            <div class="column">
-                <div class="field">
-                    <label for="name" class="label">Title</label>
-                    <p>{{$post->title}}</p>
-                </div>
-                <div class="field">
-                    <label for="email" class="label">Content</label>
-                    <p>{{$post->content}}</p>
-                </div>
-            </div>
-        </div>
+<div class="card">
+    <div class="card-header">
+        <h1 class="card-title">View Post Details</h1>
+        <a href="{{url()->previous()}}" class="btn btn-outline-dark">Back</a>
+        <a href="{{route('posts.edit', $post->id)}}" class="btn btn-outline-primary">Edit this Post</a>
     </div>
-
+    <div class="card-body">
+        <table class="table table-sm">
+            <tr class="d-flex">
+                <th class="col-2">id</th>
+                <td class="col-10">{{$post->id}}</td>
+            </tr>
+            <tr class="d-flex">
+                <th class="col-2">Title</th>
+                <td class="col-10">{{$post->title}}</td>
+            </tr>
+            <tr class="d-flex">
+                <th class="col-2">Author</th>
+                <td class="col-10">{{$post->author->name}}</td>
+            </tr>
+            <tr class="d-flex">
+                <th class="col-2">Created At</th>
+                <td class="col-10">{{$post->created_at->toFormattedDateString()}}</td>
+            </tr>
+            <tr class="d-flex">
+                <th class="col-2">Content</th>
+                <td class="col-10">{{$post->content}}</td>
+            </tr>
+        </table>
+    </div>
+</div><!--end of card-->
 @endsection

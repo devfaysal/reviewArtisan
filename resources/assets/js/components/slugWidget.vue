@@ -88,7 +88,7 @@
             },
             setSlug: function(newVal, count=0){
                 //Slugify the newVal
-                let slug = Slug(newVal + (count > 0 ? `-${count}` : ''));
+                let slug = Slugify(newVal + (count > 0 ? `-${count}` : ''));
                 let vm = this;
                 if(this.api_token && slug && this.unique_search_in){
                     //Test to see if unique

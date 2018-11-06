@@ -9,10 +9,10 @@ require('./bootstrap');
 
 window.Vue = require('vue');
 
-window.Slug = require('slug');
-Slug.defaults.mode ='rfc3986';
+window.Slugify = require('slugify');
 
 require('bootstrap-vue');
+window.feather = require('feather-icons');
 
 Vue.component('slugWidget', require('./components/slugWidget.vue'));
 /**
@@ -21,7 +21,6 @@ Vue.component('slugWidget', require('./components/slugWidget.vue'));
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-require('./manage');
 
 
 

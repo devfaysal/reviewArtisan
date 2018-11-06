@@ -58,12 +58,19 @@ class PostController extends Controller
         $post->content = $request->content;
         //$post->status = $request->status;
         //$post->type = $request->type;
-        $request->published_at ? $post->published_at = $request->published_at : null;
+        $post->published_at = $request->published_at ?? null;
 
         $post->save();
 
-        Session::flash('success', 'Post Created Successfully');
-        return redirect()->route('posts.show', $post->id);
+        if($post->save()){
+            Session::flash('message', 'Post created successfully!!'); 
+            Session::flash('alert-class', 'alert-success');
+            return redirect()->route('posts.show', $post->id);
+        }else{
+            Session::flash('message', 'Problem occured when saving Post, Try Again!!'); 
+            Session::flash('alert-class', 'alert-danger');
+            return redirect()->route('posts.create');
+        }
     }
 
     /**
@@ -97,7 +104,29 @@ class PostController extends Controller
      */
     public function update(Request $request, Post $post)
     {
-        //
+        $this->validate($request, [
+            'title' => 'required',
+            'content' => 'required',
+        ]);
+
+        $post->title = $request->title;
+        $post->excerpt = $request->excerpt;
+        $post->content = $request->content;
+        //$post->status = $request->status;
+        //$post->type = $request->type;
+        $post->published_at = $request->published_at ?? null;
+
+        $post->save();
+
+        if($post->save()){
+            Session::flash('message', 'Post Updated successfully!!'); 
+            Session::flash('alert-class', 'alert-success');
+            return redirect()->route('posts.show', $post->id);
+        }else{
+            Session::flash('message', 'Problem occured when saving Post, Try Again!!'); 
+            Session::flash('alert-class', 'alert-danger');
+            return redirect()->route('posts.edit', $post->id);
+        }
     }
 
     /**

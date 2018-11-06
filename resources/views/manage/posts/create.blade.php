@@ -1,56 +1,52 @@
 @extends('layouts.manage')
 
 @section('content')
-    <div class="flex-container">
-        <div class="columns">
-            <div class="column">
-                <h1 class="title">Create New Post</h1>
-            </div>
+    <div class="card">
+        <div class="card-header">
+            <h1 class="card-title">Create New Post</h1>
         </div>
-        <hr>
-
-        <form  action="{{route('posts.store')}}" method="post">
-            {{ csrf_field() }}
-            <div class="columns">
-                <div class="column is-three-quarters">
-                    <b-field class="m-b-20">
-                        <b-input placeholder="Post Title" size="is-large" v-model="title" name="title"> </b-input>
-                    </b-field>
-
+        <div class="card-body">
+            <form action="{{route('posts.store')}}" method="POST" enctype="multipart/form-data">
+                @csrf
+                <div class="form-group">
+                    <input v-model="title" id="title" type="text" class="form-control{{ $errors->has('title') ? ' is-invalid' : '' }}" name="title" placeholder="Title" required>
+    
+                    @if ($errors->has('title'))
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $errors->first('title') }}</strong>
+                        </span>
+                    @endif
+                </div>
+                <div class="form-group">
                     <slug-widget url="{{url('/')}}" subdirectory="blog" :title="title" @slug-changed="updateSlug"></slug-widget>
                     <input type="hidden" name="slug" :value="slug"/>
-
-                    <b-field class="m-t-30">
-                        <b-input placeholder="Content" maxlength="200" type="textarea" rows="12" name="content"></b-input>
-                    </b-field>
-                    <b-field class="m-t-30">
-                        <b-input placeholder="Excerpt" maxlength="200" type="textarea" rows="3" name="excerpt"></b-input>
-                    </b-field>
                 </div>
-                <div class="column is-one-quarter">
-                    <div class="card card-widget">
-                        <div class="author-widget-area">
-                            <img src="https://placehold.it/50x50" alt="">
-                            <h4>Faysal Ahamed</h4>
-                        </div>
-                        <div class="post-status-widget-area">
-                            <div class="status-icon">
-                                <i class="fa fa-file-text" aria-hidden="true"></i>
-                            </div>
-                            <div class="status-content">
-                                <h4>Draft Saved</h4>
-                                <small>A few Minutes ago</small>
-                            </div>
-                        </div>
-                        <div class="publish-button-widget-area">
-                                <button class="button is-outlined is-fullwidth">Save Draft</button>
-                                <button class="button is-primary is-fullwidth m-t-10">Publish</button>
-                        </div>
-                    </div>
+                <div class="form-group">
+                    <b-form-textarea id="content"
+                        v-model="content"
+                        name="content"
+                        placeholder="Content"
+                        :rows="3"
+                        :max-rows="6">
+                    </b-form-textarea>
                 </div>
-            </div>
-        </form>
-    </div><!--end of flex-container-->
+                <div class="form-group">
+                    <input id="excerpt" type="text" class="form-control{{ $errors->has('excerpt') ? ' is-invalid' : '' }}" name="excerpt" value="{{ old('excerpt') }}" placeholder="Excerpt" required>
+    
+                    @if ($errors->has('excerpt'))
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $errors->first('excerpt') }}</strong>
+                        </span>
+                    @endif
+                </div>               
+                <div class="form-group mb-0 text-center">
+                    <button type="submit" class="btn btn-success btn-block">
+                        {{ __('Publish') }}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div><!--end of card-->
 @endsection
 
 @section('scripts')
@@ -58,7 +54,8 @@
         var app = new Vue({
             el: '#app',
             data: {
-                title: '',
+                title: '{{ old('title') }}',
+                content: '{{ old('content') }}',
                 slug: '',
                 api_token: '{{Auth::user()->api_token}}',
                 unique_search_in: 'posts',
