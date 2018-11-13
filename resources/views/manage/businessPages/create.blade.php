@@ -115,6 +115,30 @@
                   placeholder="Website">
                 </b-form-input>
             </div>
+            <div class="form-group">
+                <label for="logo">{{ __('Logo') }}</label>
+                <input onchange="previewFile('#logo_preview', '#logo')" id="logo" type="file" class="form-control-file{{ $errors->has('logo') ? ' is-invalid' : '' }}" name="logo">
+                <p class="text-danger">Supported file format JPG, PNG. Maximum file size: 1MB</p>
+                <img id="logo_preview" style="width: 100px;" src="" class="img-thumbnail" height="">
+
+                @if ($errors->has('logo'))
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $errors->first('logo') }}</strong>
+                    </span>
+                @endif
+            </div>
+            <div class="form-group">
+                <label for="banner">{{ __('Banner') }}</label>
+                <input onchange="previewFile('#banner_preview','#banner')" id="banner" type="file" class="form-control-file{{ $errors->has('banner') ? ' is-invalid' : '' }}" name="banner">
+                <p class="text-danger">Supported file format JPG, PNG. Maximum file size: 1MB</p>
+                <img id="banner_preview" style="width: 100px;" src="" class="img-thumbnail" height="">
+
+                @if ($errors->has('banner'))
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $errors->first('banner') }}</strong>
+                    </span>
+                @endif
+            </div>
 
             <div class="form-group mb-0 text-center">
                 <button type="submit" class="btn btn-success btn-block">
@@ -158,5 +182,22 @@
             }
         });
     </script>
+    <script>
+        function previewFile(preview, source) {
+            var preview = document.querySelector(preview);
+            var file    = document.querySelector(source).files[0];
+            var reader  = new FileReader();
 
+            reader.onloadend = function () {
+                preview.src = reader.result;
+            }
+
+            if (file) {
+                reader.readAsDataURL(file);
+            } else {
+                preview.src = "";
+            }
+            console.log(preview.src);
+        }
+    </script>
 @endsection

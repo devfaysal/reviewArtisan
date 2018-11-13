@@ -62,8 +62,8 @@ class BusinessPageController extends Controller
             'phone' => 'required',
             'email' => 'required|email',
             // 'status' => 'required',
-            // 'logo' => 'mimes:jpg,jpeg,bmp,png|nullable|max:1999',
-            // 'banner' => 'mimes:jpg,jpeg,bmp,png|nullable|max:1999'
+            'logo' => 'mimes:jpg,jpeg,bmp,png|nullable|max:1024',
+            'banner' => 'mimes:jpg,jpeg,bmp,png|nullable|max:1024'
             
         ]); 
         
